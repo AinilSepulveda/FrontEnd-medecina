@@ -43,13 +43,42 @@ function renderApiInfo(data) {
         .map(
           ([key, value]) => `
             <dt class="col-sm-4 text-secondary">${escapeHtml(key)}</dt>
-            <dd class="col-sm-8">${escapeHtml(
-              typeof value === "object" ? JSON.stringify(value) : value,
-            )}</dd>
+            <dd class="col-sm-8">${renderValue(value)}</dd>
           `,
         )
         .join("")}
     </dl>
+  `;
+}
+
+function renderValue(value) {
+  if (Array.isArray(value)) {
+    return renderList(value);
+  }
+
+  if (value && typeof value === "object") {
+    return Object.entries(value)
+      .map(
+        ([key, items]) => `
+          <div class="mb-2">
+            <div class="fw-semibold text-capitalize mb-1">${escapeHtml(key)}</div>
+            ${Array.isArray(items) ? renderList(items) : `<span>${escapeHtml(JSON.stringify(items))}</span>`}
+          </div>
+        `,
+      )
+      .join("");
+  }
+
+  return escapeHtml(value);
+}
+
+function renderList(items) {
+  return `
+    <ul class="list-group list-group-flush api-route-list">
+      ${items
+        .map((item) => `<li class="list-group-item px-0 py-1">${escapeHtml(item)}</li>`)
+        .join("")}
+    </ul>
   `;
 }
 

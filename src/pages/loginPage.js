@@ -1,4 +1,4 @@
-import { post } from "../api/apiClient.js";
+import { publicPost } from "../api/apiClient.js";
 import { guardarToken } from "../utils/auth.js";
 import { navegar } from "../utils/router.js";
 
@@ -101,7 +101,7 @@ export function setupLoginPage() {
     spinner.classList.remove("d-none");
 
     try {
-      const respuesta = await post("/auth/login", credentials);
+      const respuesta = await publicPost("/auth/login", credentials);
 
       if (respuesta?.codigo && respuesta.codigo !== 200) {
         throw new Error(respuesta?.message || respuesta?.error);

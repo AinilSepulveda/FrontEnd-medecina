@@ -43,11 +43,11 @@ async function parseResponse(response) {
   return text || null;
 }
 
-function createHeaders(body, customHeaders = {}) {
+function createHeaders(body, customHeaders = {}, { auth = true } = {}) {
   const headers = new Headers(customHeaders);
   const token = obtenerToken();
 
-  if (token) {
+  if (auth && token) {
     headers.set("Authorization", `Bearer ${token}`);
   }
 
@@ -74,14 +74,14 @@ function getErrorMessage(status, data) {
 }
 
 async function request(path, options = {}) {
-  const { body, headers, ...restOptions } = options;
+  const { auth = true, body, headers, ...restOptions } = options;
   const url = buildUrl(path);
   let response;
 
   try {
     response = await fetch(url, {
       ...restOptions,
-      headers: createHeaders(body, headers),
+      headers: createHeaders(body, headers, { auth }),
       body: isFormData(body) || body === undefined ? body : JSON.stringify(body),
     });
   } catch (error) {
@@ -109,6 +109,10 @@ export function post(path, body) {
   return request(path, { method: "POST", body });
 }
 
+export function publicPost(path, body) {
+  return request(path, { auth: false, method: "POST", body });
+}
+
 export function put(path, body) {
   return request(path, { method: "PUT", body });
 }
@@ -125,6 +129,7 @@ export default {
   request,
   get,
   post,
+  publicPost,
   put,
   del,
   upload,
