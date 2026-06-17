@@ -48,6 +48,13 @@ body {
   align-items: center;
 }
 
+.page-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
 .nav-link {
   border-radius: 6px;
 }
@@ -59,4 +66,26 @@ body {
 
 .card {
   border-radius: 8px;
+}
+
+.module-link {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.module-link:hover {
+  transform: translateY(-2px);
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 767.98px) {
+  .page-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
 }
