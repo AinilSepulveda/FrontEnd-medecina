@@ -66,6 +66,10 @@ export function protegerRuta() {
   return ruta;
 }
 
+export function esRutaPrivada(ruta) {
+  return rutasPrivadas.includes(normalizarRuta(ruta));
+}
+
 export function iniciarRouter(renderizarRuta) {
   const renderizar = () => {
     const ruta = protegerRuta();

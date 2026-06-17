@@ -19,7 +19,7 @@ export class ApiError extends Error {
 
 function buildUrl(path) {
   if (/^https?:\/\//i.test(path)) {
-    return path;
+    throw new ApiError("El frontend solo puede consumir rutas relativas del backend local.", 400);
   }
 
   const baseUrl = API_URL.replace(/\/$/, "");
@@ -75,11 +75,19 @@ function getErrorMessage(status, data) {
 
 async function request(path, options = {}) {
   const { body, headers, ...restOptions } = options;
-  const response = await fetch(buildUrl(path), {
-    ...restOptions,
-    headers: createHeaders(body, headers),
-    body: isFormData(body) || body === undefined ? body : JSON.stringify(body),
-  });
+  const url = buildUrl(path);
+  let response;
+
+  try {
+    response = await fetch(url, {
+      ...restOptions,
+      headers: createHeaders(body, headers),
+      body: isFormData(body) || body === undefined ? body : JSON.stringify(body),
+    });
+  } catch (error) {
+    throw new ApiError("No se pudo conectar con el backend local.", 500, error);
+  }
+
   const data = await parseResponse(response);
 
   if (!response.ok) {
@@ -114,6 +122,7 @@ export function upload(path, formData) {
 }
 
 export default {
+  request,
   get,
   post,
   put,
