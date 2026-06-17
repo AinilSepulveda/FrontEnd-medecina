@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+frontend-clinica/node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+frontend-clinica/dist/
+frontend-clinica/dist-ssr/
+
+# Environment files
+.env
+.env.*
+!.env.example
+frontend-clinica/.env
+frontend-clinica/.env.*
+!frontend-clinica/.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor and OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
