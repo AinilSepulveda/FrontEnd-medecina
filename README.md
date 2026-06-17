@@ -17,6 +17,21 @@ Este repositorio corresponde solo a la capa de interfaz de usuario. Su responsab
 
 Este frontend no se conecta directamente a PostgreSQL. La base de datos, Sequelize, modelos, migraciones, middlewares JWT y persistencia pertenecen al backend.
 
+## Backend Del Proyecto
+
+El backend de esta aplicacion web se encuentra en un repositorio separado:
+
+[AinilSepulveda/Evaluacion-8](https://github.com/AinilSepulveda/Evaluacion-8)
+
+Ese repositorio contiene la API REST, autenticacion JWT, conexion a PostgreSQL, modelos Sequelize y la logica de persistencia. Tambien incluye las instrucciones necesarias para montar y ejecutar el backend.
+
+El proyecto se separo en dos partes para mantener responsabilidades claras:
+
+- Frontend: interfaz de usuario, rutas visuales, formularios, validaciones y consumo de API.
+- Backend: API REST, autenticacion, reglas del servidor, base de datos y persistencia.
+
+Para ejecutar la aplicacion completa se debe levantar primero el backend y luego este frontend.
+
 ## Requerimientos Funcionales
 
 | Codigo | Requerimiento | Implementacion frontend |
